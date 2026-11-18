@@ -1,0 +1,31 @@
+{
+  "name": "forkify",
+  "version": "1.0.0",
+  "description": "Recipe application",
+  "keywords": [
+    "Recipes"
+  ],
+  "homepage": "https://github.com/troncopollits/forkify-app#readme",
+  "bugs": {
+    "url": "https://github.com/troncopollits/forkify-app/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/troncopollits/forkify-app.git"
+  },
+  "license": "ISC",
+  "author": "Arturo Sendra",
+  "main": "index.html",
+  "targets": {
+    "main": false
+  },
+  "scripts": {
+    "start": "parcel index.html",
+    "build": "parcel build index.html"
+  },
+  "devDependencies": {
+    "@parcel/transformer-sass": "^2.16.4",
+    "parcel": "^2.16.4",
+    "sass": "^1.108.2"
+  }
+}
