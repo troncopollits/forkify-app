@@ -1,4 +1,6 @@
 import { async } from "regenerator-runtime";
+import { API_URL } from "./config";
+import { getJSON } from "./helpers";
 
 // Lo que hacemos en este modelo es cambiar el estado de la constante state
 export const state = {
@@ -7,14 +9,8 @@ export const state = {
 
 export const loadRecipe = async function (id) {
   try {
-    const res = await fetch(
-      // "https://forkify-api.jonas.io/api/v2/recipes/664c8f193e7aa067e94e897b"
-      `https://forkify-api.jonas.io/api/v2/recipes/${id}`
-    );
-    const data = await res.json();
-    if (!res.ok) throw new Error(`${data.message} (${res.status})`);
-
-    console.log(res, data);
+    const data = await getJSON(`${API_URL}/${id}`);
+    // console.log(res, data);
 
     const { recipe } = data.data;
 
@@ -29,8 +25,8 @@ export const loadRecipe = async function (id) {
       ingredients: recipe.ingredients,
     };
 
-    console.log(state.recipe);
+    // console.log(state.recipe);
   } catch (err) {
-    console.error(err);
+    console.error(`${err} 😡😡`);
   }
 };
