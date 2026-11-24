@@ -5,6 +5,8 @@ import { Fraction } from "fraction.js";
 export class RecipeView {
   #parentElement = document.querySelector(".recipe");
   #data;
+  #errorMessage = "We could not find that recipe. Please try another one!";
+  #message = "";
 
   render(data) {
     this.#data = data;
@@ -18,7 +20,7 @@ export class RecipeView {
   }
 
   // Render spinner
-  renderSpinner = function () {
+  renderSpinner() {
     const markup = `
     <div class="spinner">
       <svg>
@@ -27,10 +29,39 @@ export class RecipeView {
     </div>
     `;
 
-    this.#parentElement.innerHTML = "";
+    this.#clear();
     this.#parentElement.insertAdjacentHTML("afterbegin", markup);
-  };
+  }
 
+  renderError(message = this.#errorMessage) {
+    const markup = `
+        <div class="error">
+            <div>
+              <svg>
+                <use href="${icons}#icon-alert-triangle"></use>
+              </svg>
+            </div>
+            <p>${message}</p>
+        </div>`;
+
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML("afterbegin", markup);
+  }
+
+  renderMessage(message = this.#message) {
+    const markup = `
+        <div class="message">
+            <div>
+              <svg>
+                <use href="${icons}#icon-smile"></use>
+              </svg>
+            </div>
+            <p>${message}</p>
+        </div>`;
+
+    this.#clear();
+    this.#parentElement.insertAdjacentHTML("afterbegin", markup);
+  }
   //   publisher-subscriber - En MVC, detectar eventos es trabajo de la vista (es la que tiene el DOM), pero decidir qué hacer es trabajo del controlador. El problema: la vista no puede importar el controlador, porque el controlador ya importa la vista y se crearía una dependencia circular.
   addHandlerRender(handler) {
     ["hashchange", "load"].forEach((ev) =>
