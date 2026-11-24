@@ -30,6 +30,14 @@ export class RecipeView {
     this.#parentElement.innerHTML = "";
     this.#parentElement.insertAdjacentHTML("afterbegin", markup);
   };
+
+  //   publisher-subscriber - En MVC, detectar eventos es trabajo de la vista (es la que tiene el DOM), pero decidir qué hacer es trabajo del controlador. El problema: la vista no puede importar el controlador, porque el controlador ya importa la vista y se crearía una dependencia circular.
+  addHandlerRender(handler) {
+    ["hashchange", "load"].forEach((ev) =>
+      window.addEventListener(ev, handler)
+    );
+  }
+
   #generateMarkup() {
     return `
     <figure class="recipe__fig">
