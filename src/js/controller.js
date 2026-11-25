@@ -4,7 +4,7 @@ import searchView from "./views/searchView.js";
 
 import "core-js/stable";
 import "regenerator-runtime/runtime";
-
+import resultsView from "./views/resultsView.js";
 ///////////////////////////////////////
 
 // Primera Promesa y recoger desde una url una de las recetas
@@ -30,21 +30,22 @@ const controlRecipes = async function () {
 // Controlador para buscar el resultado en la barra de búsqueda
 const controlSearchResults = async function () {
   try {
+    resultsView.renderSpinner();
+
     // 1. Get search query
     const query = searchView.getQuery();
     if (!query) return;
 
     // 2. Load search results
-    model.loadSearchResults(query);
+    await model.loadSearchResults(query);
 
     // 3. Render results
-    console.log(model.state.search.results);
+    // console.log(model.state.search.results);
+    resultsView.render(model.state.search.results);
   } catch (err) {
     console.log(err);
   }
 };
-
-controlSearchResults();
 
 // publisher-subscriber pattern
 const init = function () {
