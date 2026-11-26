@@ -61,9 +61,18 @@ const controlPagination = function (goToPage) {
   console.log(goToPage);
 };
 
+// Se les llama controladores porque estamos utilizando el modelo MCV pero también se les podría llamar event handlers porque en el fondo es lo que son . Correran siempre y cuando algún evento ocurra.
+const controlServings = function (newServings) {
+  // Update the recipe servings(in state)
+  model.updateServings(newServings);
+  // Update the recipe view
+  recipeView.render(model.state.recipe);
+};
+
 // publisher-subscriber pattern
 const init = function () {
   recipeView.addHandlerRender(controlRecipes);
+  recipeView.addHandlerUpdateServings(controlServings);
   searchView.addHandlerSearch(controlSearchResults);
   paginationView.addHandlerClick(controlPagination);
 };
